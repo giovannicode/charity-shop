@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'customusers',
+    'main',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -95,3 +96,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'customusers.User'
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
