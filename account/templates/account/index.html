@@ -1,5 +1,28 @@
 {% extends "wrapper.html" %}
 
+{% block other_headings %}
+<style>
+#main_container
+{
+  background-color: hsl(145, 80%, 45%);
+}
+
+#main_nav
+{
+   position: relative;
+   left: 30px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>Hi I am the account page</h1>
+<div id="main_container" class="container">
+   <nav id="main_nav" class="navbar navbar-default pull-right">
+     <ul class="nav navbar-nav">
+       <li><a href=#">Shop</a></li>
+       <li><a href="{% url 'account:signup' %}">Sign Up</a></li>
+       <li><a href="#">Login</a></li>
+     </ul>
+   </nav>
+</div>
 {% endblock %}
