@@ -7,4 +7,24 @@
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 <script src="{% static 'assets/js/docs.js' %}"></script>
+<style>
+body{
+margin-top: 70px;
+}
+</style>
 
+{% block other_headings %}
+{% endblock %}
+</head>
+<body>
+  <nav class="navbar navbar-default pull-right">
+    <ul class="nav navbar-nav">
+      <li><a href="#">Shop</a></li>
+      <li><a href="{% url 'account:signup' %}">Sign up</a></li>
+      <li><a href="#">Login</a></li>
+    </ul>
+  </nal>
+{% block content %}
+{% endblock %}
+</body>
+</html>

@@ -29,25 +29,14 @@ class User(AbstractBaseUser):
   first_name = models.CharField(_('First Name'),max_length=30, blank=False)
   last_name = models.CharField(_('Last Name'), max_length=30, blank=False)
   
-  user_handle = models.CharField(max_length=20, unique=True,
-      help_text=_('Required. 20 characters of less. Only alphanumeric characters and the (+/-/./_) characters'), 
-          validators=[
-              validators.RegexValidator(r'^[\w.+-]+$',
-                  _('Enter a valid username. It may only contain '
-                    'alphanumeric and the (+/-/./_)'), 'invalid')],
-          error_messages={
-              'unique': _("A user with that username already exists"),
-          }
-  )
+  user_handle = models.CharField(max_length=20, unique=True)
 
-  email = models.EmailField(_('Email Address'), 
-    max_length=255, 
-    unique=True
-  )
+  email = models.EmailField(_('Email Address'), max_length=255, unique=True)
   
   #new fields - profile_pic, donation_total
   profile_pic = models.FileField(_('Profile Picture'), null=True)
-
+  ###############
+  
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['first_name', 'last_name', 'user_handle']
 
@@ -65,34 +54,17 @@ class User(AbstractBaseUser):
   def __unicode__(self):
     return  self.user_handle + "  id:" + str(self.id)
 
-class UserCreatorForm(forms.ModelForm):
-  
- 
-  error_messages = {
-      'duplicate_username': _("A user with that username already exists. "),
-      'password_mismatch': _("The two password fields didn't match."),
-  }
 
-
-  username = forms.RegexField(label=_("Username"), max_length=20,
-      regex=r'^[\w.+-]+$',
-      help_text=_("Required. 20 characters or less."
-                  "Alphanumeric and (./+/-) only"),
-      error_messages={
-        'invalid': _("This value may contain only letters, number and "
-                     "./+/-/_ characters")})
-
+class UserCreatorForm(forms.ModelForm):  
   password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
-  password2 = forms.CharField(label=_("Password confirmation"),
-  widget=forms.PasswordInput,
-  help_text=_("Enter the same password as above, for verification."))
+  password2 = forms.CharField(label=_("Password confirmation"), widget=forms.PasswordInput)
 
   class Meta:
     model = User
-    fields = ("first_name", "last_name", "username", "email")
+    fields = ("first_name", "last_name", "user_handle", "email")
 
   def clean_username(self):
-    username = self.cleaned_data["username"]
+    username = self.cleaned_data["user_handle"]
     try:
       User._default_manager.get(username=username)
     except User.DoesNotExist:
