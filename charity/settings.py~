@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'customusers',
     'main',
     'account',
-    'products',
 )
 
 MIDDLEWARE_CLASSES = (
